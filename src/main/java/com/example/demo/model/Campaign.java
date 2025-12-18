@@ -1,7 +1,7 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-import java.BigDecimal;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
@@ -20,6 +20,16 @@ public class Campaign{
 
     @Column(nullable = false)
     private BigDecimal budget;
+
+    private Boolean active = true;
+
+    public String getCampaignName() {
+    return campaignName;
+    }
+    public void setCampaignName(String campaignName) {
+    this.campaignName = campaignName;
+    }
+
 
 
 }
