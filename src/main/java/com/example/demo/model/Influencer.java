@@ -4,4 +4,9 @@ import jakarta.persistence.*;
 import jakarta.time.LocalDateTime;
 
 @Entity
-@Table(name="influencers",uniqueConstraints={})
+public class Influencer{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+}
