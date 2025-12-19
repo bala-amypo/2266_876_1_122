@@ -1,35 +1,47 @@
 package com.example.demo.model;
 
-import jakarta.persistence.*;
-import java.math.BigDecimal;
 import java.time.LocalDate;
+import jakarta.persistence.*;
 
 @Entity
-
-public class Campaign{
+public class Campaign {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
     private String campaignName;
 
     private LocalDate startDate;
     private LocalDate endDate;
 
-    @Column(nullable = false)
-    private BigDecimal budget;
+    // ===== GETTERS & SETTERS =====
 
-    private Boolean active = true;
+    public Long getId() {
+        return id;
+    }
 
     public String getCampaignName() {
-    return campaignName;
+        return campaignName;
     }
+
     public void setCampaignName(String campaignName) {
-    this.campaignName = campaignName;
+        this.campaignName = campaignName;
     }
 
+    public LocalDate getStartDate() {
+        return startDate;
+    }
 
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
 
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
 }
