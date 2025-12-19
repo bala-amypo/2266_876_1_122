@@ -3,59 +3,44 @@ package com.example.demo.model;
 import jakarta.persistence.*;
 
 @Entity
-public class DiscountCode{
+public class DiscountCode {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
-    private String code;
+    private String codeValue;
 
-    @Column(nullable = false)
-    private Integer discountPercentage;
-
-    private Boolean active = true;
+    private Double discountPercentage;
 
     @ManyToOne
-    @JoinColumn(name = "influencer_id", nullable = false)
+    @JoinColumn(name = "influencer_id")
     private Influencer influencer;
 
     @ManyToOne
-    @JoinColumn(name = "campaign_id", nullable = false)
+    @JoinColumn(name = "campaign_id")
     private Campaign campaign;
 
-    
+    // ===== GETTERS & SETTERS =====
+
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public String getCodeValue() {
+        return codeValue;
     }
 
-    public String getCode() {
-        return code;
+    public void setCodeValue(String codeValue) {
+        this.codeValue = codeValue;
     }
 
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public Integer getDiscountPercentage() {
+    public Double getDiscountPercentage() {
         return discountPercentage;
     }
 
-    public void setDiscountPercentage(Integer discountPercentage) {
+    public void setDiscountPercentage(Double discountPercentage) {
         this.discountPercentage = discountPercentage;
-    }
-
-    public Boolean getActive() {
-        return active;
-    }
-
-    public void setActive(Boolean active) {
-        this.active = active;
     }
 
     public Influencer getInfluencer() {

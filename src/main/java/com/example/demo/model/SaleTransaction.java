@@ -1,8 +1,9 @@
 package com.example.demo.model;
 
-import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+
+import jakarta.persistence.*;
 
 @Entity
 public class SaleTransaction {
@@ -11,40 +12,20 @@ public class SaleTransaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private BigDecimal saleAmount;
-
-    private LocalDateTime transactionDate;
-
     @ManyToOne
     @JoinColumn(name = "discount_code_id", nullable = false)
     private DiscountCode discountCode;
 
-    @PrePersist
-    public void onCreate() {
-        this.transactionDate = LocalDateTime.now();
-    }
+    private BigDecimal transactionAmount;
 
-    // ===== Getters and Setters =====
+    private LocalDateTime transactionDate;
+
+    private Long customerId;
+
+    // ===== GETTERS & SETTERS =====
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public BigDecimal getSaleAmount() {
-        return saleAmount;
-    }
-
-    public void setSaleAmount(BigDecimal saleAmount) {
-        this.saleAmount = saleAmount;
-    }
-
-    public LocalDateTime getTransactionDate() {
-        return transactionDate;
     }
 
     public DiscountCode getDiscountCode() {
@@ -53,5 +34,29 @@ public class SaleTransaction {
 
     public void setDiscountCode(DiscountCode discountCode) {
         this.discountCode = discountCode;
+    }
+
+    public BigDecimal getTransactionAmount() {
+        return transactionAmount;
+    }
+
+    public void setTransactionAmount(BigDecimal transactionAmount) {
+        this.transactionAmount = transactionAmount;
+    }
+
+    public LocalDateTime getTransactionDate() {
+        return transactionDate;
+    }
+
+    public void setTransactionDate(LocalDateTime transactionDate) {
+        this.transactionDate = transactionDate;
+    }
+
+    public Long getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
     }
 }
