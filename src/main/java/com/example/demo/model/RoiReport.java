@@ -1,8 +1,8 @@
 package com.example.demo.model;
 
-import jakarta.persistence.*;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+
+import jakarta.persistence.*;
 
 @Entity
 public class RoiReport {
@@ -12,49 +12,26 @@ public class RoiReport {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "campaign_id")
-    private Campaign campaign;
+    private DiscountCode discountCode;
 
-    @ManyToOne
-    @JoinColumn(name = "influencer_id")
-    private Influencer influencer;
-
-    @Column(nullable = false)
     private BigDecimal totalSales;
 
-    @Column(nullable = false)
-    private BigDecimal totalRevenue;
+    private Integer totalTransactions;
 
-    @Column(nullable = false)
-    private BigDecimal roiPercentage;
+    private Double roiPercentage;
 
-    private LocalDateTime generatedAt;
-
-    @PrePersist
-    public void onCreate() {
-        this.generatedAt = LocalDateTime.now();
-    }
-
-    // ===== Getters and Setters =====
+    // ===== GETTERS & SETTERS =====
 
     public Long getId() {
         return id;
     }
 
-    public Campaign getCampaign() {
-        return campaign;
+    public DiscountCode getDiscountCode() {
+        return discountCode;
     }
 
-    public void setCampaign(Campaign campaign) {
-        this.campaign = campaign;
-    }
-
-    public Influencer getInfluencer() {
-        return influencer;
-    }
-
-    public void setInfluencer(Influencer influencer) {
-        this.influencer = influencer;
+    public void setDiscountCode(DiscountCode discountCode) {
+        this.discountCode = discountCode;
     }
 
     public BigDecimal getTotalSales() {
@@ -65,23 +42,19 @@ public class RoiReport {
         this.totalSales = totalSales;
     }
 
-    public BigDecimal getTotalRevenue() {
-        return totalRevenue;
+    public Integer getTotalTransactions() {
+        return totalTransactions;
     }
 
-    public void setTotalRevenue(BigDecimal totalRevenue) {
-        this.totalRevenue = totalRevenue;
+    public void setTotalTransactions(Integer totalTransactions) {
+        this.totalTransactions = totalTransactions;
     }
 
-    public BigDecimal getRoiPercentage() {
+    public Double getRoiPercentage() {
         return roiPercentage;
     }
 
-    public void setRoiPercentage(BigDecimal roiPercentage) {
+    public void setRoiPercentage(Double roiPercentage) {
         this.roiPercentage = roiPercentage;
-    }
-
-    public LocalDateTime getGeneratedAt() {
-        return generatedAt;
     }
 }
