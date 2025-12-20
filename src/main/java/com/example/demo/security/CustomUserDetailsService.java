@@ -1,5 +1,8 @@
 package com.example.demo.security;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class CustomUserDetailsService {
-    // Empty for now (CRUD review scope)
+    // Intentionally empty for first review
 }
