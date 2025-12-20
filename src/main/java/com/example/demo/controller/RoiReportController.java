@@ -13,21 +13,23 @@ public class RoiReportController {
 
     private final RoiService roiService;
 
-    // Constructor injection
     public RoiReportController(RoiService roiService) {
         this.roiService = roiService;
     }
 
+    // GENERATE ROI FOR DISCOUNT CODE
     @PostMapping("/code/{discountCodeId}")
     public RoiReport generateReportForCode(@PathVariable Long discountCodeId) {
         return roiService.generateReportForCode(discountCodeId);
     }
 
+    // READ ROI BY ID
     @GetMapping("/{reportId}")
-    public RoiReport getReportById(@PathVariable Long reportId) {
+    public RoiReport getReport(@PathVariable Long reportId) {
         return roiService.getReportById(reportId);
     }
 
+    // READ ROI BY INFLUENCER
     @GetMapping("/influencer/{influencerId}")
     public List<RoiReport> getReportsForInfluencer(@PathVariable Long influencerId) {
         return roiService.getReportsForInfluencer(influencerId);
