@@ -13,7 +13,6 @@ public class SaleTransaction {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "discount_code_id", nullable = false)
     private DiscountCode discountCode;
 
     private BigDecimal transactionAmount;
@@ -22,8 +21,20 @@ public class SaleTransaction {
 
     private Long customerId;
 
-    // ===== GETTERS & SETTERS =====
+    // ===== Constructors =====
+    public SaleTransaction() {}
 
+    public SaleTransaction(DiscountCode discountCode,
+                           BigDecimal transactionAmount,
+                           LocalDateTime transactionDate,
+                           Long customerId) {
+        this.discountCode = discountCode;
+        this.transactionAmount = transactionAmount;
+        this.transactionDate = transactionDate;
+        this.customerId = customerId;
+    }
+
+    // ===== Getters & Setters =====
     public Long getId() {
         return id;
     }

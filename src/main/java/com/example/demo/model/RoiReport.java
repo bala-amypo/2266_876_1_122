@@ -20,8 +20,20 @@ public class RoiReport {
 
     private Double roiPercentage;
 
-    // ===== GETTERS & SETTERS =====
+    // ===== Constructors =====
+    public RoiReport() {}
 
+    public RoiReport(DiscountCode discountCode,
+                     BigDecimal totalSales,
+                     Integer totalTransactions,
+                     Double roiPercentage) {
+        this.discountCode = discountCode;
+        this.totalSales = totalSales;
+        this.totalTransactions = totalTransactions;
+        this.roiPercentage = roiPercentage;
+    }
+
+    // ===== Getters & Setters =====
     public Long getId() {
         return id;
     }

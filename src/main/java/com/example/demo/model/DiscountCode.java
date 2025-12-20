@@ -14,15 +14,20 @@ public class DiscountCode {
     private Double discountPercentage;
 
     @ManyToOne
-    @JoinColumn(name = "influencer_id")
     private Influencer influencer;
 
     @ManyToOne
-    @JoinColumn(name = "campaign_id")
     private Campaign campaign;
 
-    // ===== GETTERS & SETTERS =====
+    // ===== Constructors =====
+    public DiscountCode() {}
 
+    public DiscountCode(String codeValue, Double discountPercentage) {
+        this.codeValue = codeValue;
+        this.discountPercentage = discountPercentage;
+    }
+
+    // ===== Getters & Setters =====
     public Long getId() {
         return id;
     }
