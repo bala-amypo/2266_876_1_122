@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import java.time.LocalDateTime;
 import jakarta.persistence.*;
 
 @Entity
@@ -9,29 +10,35 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // 🔴 THIS FIELD WAS MISSING
-    @Column(unique = true, nullable = false)
     private String email;
 
     private String password;
 
     private String role;
 
-    // ===== constructors =====
+    private LocalDateTime createdAt;
+
     public User() {}
 
-    public User(String email, String password, String role) {
-        this.email = email;
-        this.password = password;
-        this.role = role;
+    @PrePersist
+    public void onCreate() {
+        this.createdAt = LocalDateTime.now();
+        if (this.role == null) {
+            this.role = "USER";
+        }
     }
 
-    // ===== getters & setters =====
+    // ===== GETTERS & SETTERS =====
+
     public Long getId() {
         return id;
     }
 
-    public String getEmail() {        // 🔴 REQUIRED
+    public void setId(Long id) {   // 🔥 fixes String → Long error
+        this.id = id;
+    }
+
+    public String getEmail() {
         return email;
     }
 
@@ -42,16 +49,25 @@ public class User {
     public String getPassword() {
         return password;
     }
-
+ 
     public void setPassword(String password) {
         this.password = password;
     }
-
+ 
     public String getRole() {
         return role;
     }
-
+ 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    // 🔥 REQUIRED BY TESTS
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }
