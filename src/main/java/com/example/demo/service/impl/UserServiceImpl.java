@@ -11,14 +11,12 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
-    // Constructor injection (no security logic)
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
     @Override
     public User registerUser(User user) {
-        // Simple save (CRUD only)
         return userRepository.save(user);
     }
 
