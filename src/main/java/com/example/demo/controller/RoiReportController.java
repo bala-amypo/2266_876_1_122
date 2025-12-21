@@ -1,14 +1,12 @@
 package com.example.demo.controller;
 
-import java.util.List;
-
-import org.springframework.web.bind.annotation.*;
-
 import com.example.demo.model.RoiReport;
 import com.example.demo.service.RoiService;
+import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/roi")
+@RequestMapping("/api/roi")
 public class RoiReportController {
 
     private final RoiService roiService;
@@ -17,21 +15,23 @@ public class RoiReportController {
         this.roiService = roiService;
     }
 
-    // GENERATE ROI FOR DISCOUNT CODE
-    @PostMapping("/code/{discountCodeId}")
-    public RoiReport generateReportForCode(@PathVariable Long discountCodeId) {
-        return roiService.generateReportForCode(discountCodeId);
+    @PostMapping("/generate/{codeId}")
+    public RoiReport generateRoi(@PathVariable Long codeId) {
+        return roiService.generateReportForCode(codeId);
     }
 
-    // READ ROI BY ID
-    @GetMapping("/{reportId}")
-    public RoiReport getReport(@PathVariable Long reportId) {
-        return roiService.getReportById(reportId);
+    @GetMapping("/{id}")
+    public RoiReport getRoiById(@PathVariable Long id) {
+        return roiService.getReportById(id);
     }
 
-    // READ ROI BY INFLUENCER
     @GetMapping("/influencer/{influencerId}")
-    public List<RoiReport> getReportsForInfluencer(@PathVariable Long influencerId) {
+    public List<RoiReport> getRoiByInfluencer(@PathVariable Long influencerId) {
         return roiService.getReportsForInfluencer(influencerId);
+    }
+
+    @GetMapping("/campaign/{campaignId}")
+    public List<RoiReport> getRoiByCampaign(@PathVariable Long campaignId) {
+        return roiService.getReportsForCampaign(campaignId);
     }
 }

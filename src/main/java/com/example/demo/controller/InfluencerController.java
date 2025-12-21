@@ -2,10 +2,14 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Influencer;
 import com.example.demo.service.InfluencerService;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
 @RequestMapping("/influencers")
@@ -18,17 +22,30 @@ public class InfluencerController {
     }
 
     @PostMapping
-    public ResponseEntity<Influencer> createInfluencer(@RequestBody Influencer influencer) {
-        return ResponseEntity.ok(influencerService.createInfluencer(influencer));
+    public Influencer createInfluencer(@RequestBody Influencer influencer) {
+        return influencerService.createInfluencer(influencer);
     }
 
     @GetMapping
-    public ResponseEntity<List<Influencer>> getAllInfluencers() {
-        return ResponseEntity.ok(influencerService.getAllInfluencers());
+    public List<Influencer> getAllInfluencers() {
+        return influencerService.getAllInfluencers();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Influencer> getInfluencer(@PathVariable Long id) {
-        return ResponseEntity.ok(influencerService.getInfluencerById(id));
+    public Influencer getInfluencerById(@PathVariable Long id) {
+        return influencerService.getInfluencerById(id);
+    }
+    @PutMapping("/{id}")
+    public Influencer updateInfluencer(
+            @PathVariable Long id,
+            @RequestBody Influencer influencer) {
+        return influencerService.updateInfluencer(id, influencer);
+    }
+
+    
+    @PutMapping("/{id}/deactivate")
+    public Influencer deactivateInfluencer(@PathVariable Long id) {
+        return influencerService.deactivateInfluencer(id);
     }
 }
+
