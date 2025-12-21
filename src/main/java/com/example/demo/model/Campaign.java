@@ -1,9 +1,14 @@
 package com.example.demo.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import java.time.LocalDate;
-import jakarta.persistence.*;
 
 @Entity
+@Table(name = "campaigns")
 public class Campaign {
 
     @Id
@@ -13,9 +18,20 @@ public class Campaign {
     private String campaignName;
 
     private LocalDate startDate;
+
     private LocalDate endDate;
 
-    public Campaign() {}
+    private Boolean active;
+
+    public Campaign() {
+        
+    }
+
+    public Campaign(String campaignName, LocalDate startDate, LocalDate endDate) {
+        this.campaignName = campaignName;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
 
     public Long getId() {
         return id;
@@ -48,4 +64,12 @@ public class Campaign {
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
+    public boolean isActive() {
+    return active;
+}
+
+public void setActive(boolean active) {
+    this.active = active;
+}
+
 }
