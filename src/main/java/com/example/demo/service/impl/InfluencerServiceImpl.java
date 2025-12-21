@@ -1,20 +1,19 @@
 package com.example.demo.service.impl;
 
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.Influencer;
 import com.example.demo.repository.InfluencerRepository;
 import com.example.demo.service.InfluencerService;
-
+import java.util.List;
+import java.util.Optional;
+import org.springframework.stereotype.Service;
 @Service
+
+
 public class InfluencerServiceImpl implements InfluencerService {
 
     private final InfluencerRepository influencerRepository;
 
-    // Constructor injection
     public InfluencerServiceImpl(InfluencerRepository influencerRepository) {
         this.influencerRepository = influencerRepository;
     }
@@ -22,11 +21,12 @@ public class InfluencerServiceImpl implements InfluencerService {
     @Override
     public Influencer createInfluencer(Influencer influencer) {
 
-        // Rule: socialHandle must be unique
-        influencerRepository.findBySocialHandle(influencer.getSocialHandle())
-                .ifPresent(existing -> {
-                    throw new RuntimeException("Duplicate social handle");
-                });
+        Optional<Influencer> existing =
+                influencerRepository.findBySocialHandle(influencer.getSocialHandle());
+
+        if (existing.isPresent()) {
+            throw new RuntimeException("Duplicate social handle");
+        }
 
         return influencerRepository.save(influencer);
     }
@@ -41,4 +41,33 @@ public class InfluencerServiceImpl implements InfluencerService {
         return influencerRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Influencer not found"));
     }
+    @Override
+    public Influencer updateInfluencer(Long id, Influencer influencer) {
+
+        Influencer existing = influencerRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Influencer not found"));
+
+        // Only update allowed fields (NO LOGIC CHANGE)
+        if (influencer.getName() != null) {
+            existing.setName(influencer.getName());
+        }
+        if (influencer.getEmail() != null) {
+            existing.setEmail(influencer.getEmail());
+        }
+        if (influencer.getSocialHandle() != null) {
+            existing.setSocialHandle(influencer.getSocialHandle());
+        }
+
+        return influencerRepository.save(existing);
+    }
+
+    @Override
+    public Influencer deactivateInfluencer(Long id) {
+         Influencer influencer = influencerRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Influencer not found"));
+
+        influencer.setActive(false);
+        return influencerRepository.save(influencer);
+    }
 }
+
