@@ -1,44 +1,69 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.exception.ResourceNotFoundException;
+import com.example.demo.model.DiscountCode;
 import com.example.demo.model.SaleTransaction;
+import com.example.demo.repository.DiscountCodeRepository;
+import com.example.demo.repository.SaleTransactionRepository;
 import com.example.demo.service.SaleTransactionService;
-import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
+import java.math.BigDecimal;
 import java.util.List;
+
+import org.springframework.stereotype.Service;
 
 @Service
 public class SaleTransactionServiceImpl implements SaleTransactionService {
 
-    @Override
-    public SaleTransaction createSale(SaleTransaction transaction) {
+    private final SaleTransactionRepository saleTransactionRepository;
+    private final DiscountCodeRepository discountCodeRepository;
 
-        if (transaction.getTransactionAmount().signum() <= 0) {
-            throw new IllegalArgumentException("Transaction amount must be > 0");
+    public SaleTransactionServiceImpl(
+            SaleTransactionRepository saleTransactionRepository,
+            DiscountCodeRepository discountCodeRepository) {
+        this.saleTransactionRepository = saleTransactionRepository;
+        this.discountCodeRepository = discountCodeRepository;
+    }
+
+    @Override
+    public SaleTransaction logTransaction(SaleTransaction transaction) {
+
+        
+        if (transaction.getSaleAmount() == null
+                || transaction.getSaleAmount().compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("Sale amount must be > 0");
         }
 
-        // ✅ FIXED: Timestamp, NOT LocalDateTime
-        if (transaction.getTransactionDate() == null) {
-            transaction.setTransactionDate(
-                    new Timestamp(System.currentTimeMillis())
-            );
-        }
+        
+        Long codeId = transaction.getDiscountCode().getId();
 
-        return transaction;
+        DiscountCode code = discountCodeRepository.findById(codeId)
+                .orElseThrow(() -> new ResourceNotFoundException("Discount code not found"));
+
+        transaction.setDiscountCode(code);
+
+        
+        return saleTransactionRepository.save(transaction);
     }
 
     @Override
-    public List<SaleTransaction> getSalesForCode(Long discountCodeId) {
-        return List.of();
-    }
+public List<SaleTransaction> getSalesForCode(Long discountCodeId) {
+    return saleTransactionRepository.findByDiscountCode_Id(discountCodeId);
+}
+
+@Override
+public List<SaleTransaction> getSalesForInfluencer(Long influencerId) {
+    return saleTransactionRepository.findByDiscountCode_Influencer_Id(influencerId);
+}
+
+@Override
+public List<SaleTransaction> getSalesForCampaign(Long campaignId) {
+    return saleTransactionRepository.findByDiscountCode_Campaign_Id(campaignId);
+}
 
     @Override
-    public List<SaleTransaction> getSalesForInfluencer(Long influencerId) {
-        return List.of();
-    }
-
-    @Override
-    public List<SaleTransaction> getSalesForCampaign(Long campaignId) {
-        return List.of();
+    public SaleTransaction getTransactionById(Long id) {
+        return saleTransactionRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Sale not found"));
     }
 }
