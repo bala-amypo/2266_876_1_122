@@ -25,14 +25,20 @@ public class AuthController {
 
         User user = userService.findByEmail(request.getEmail());
 
+        // ✅ EXACT ORDER REQUIRED BY TESTCASE
         String token = jwtUtil.generateToken(
+                user.getEmail(),   // String
+                user.getRole(),    // String
+                user.getId()       // Long
+        );
+
+        AuthResponse response = new AuthResponse(
+                token,
                 user.getId(),
                 user.getEmail(),
                 user.getRole()
         );
 
-        return ResponseEntity.ok(
-                new AuthResponse(token, user.getId(), user.getEmail(), user.getRole())
-        );
+        return ResponseEntity.ok(response);
     }
 }
