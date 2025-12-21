@@ -1,11 +1,11 @@
 package com.example.demo.controller;
 
-import java.util.List;
-
-import org.springframework.web.bind.annotation.*;
-
 import com.example.demo.model.Campaign;
 import com.example.demo.service.CampaignService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/campaigns")
@@ -17,22 +17,21 @@ public class CampaignController {
         this.campaignService = campaignService;
     }
 
-    // UPDATE
     @PutMapping("/{id}")
-    public Campaign updateCampaign(@PathVariable Long id,
-                                   @RequestBody Campaign campaign) {
-        return campaignService.updateCampaign(id, campaign);
+    public ResponseEntity<Campaign> updateCampaign(
+            @PathVariable Long id,
+            @RequestBody Campaign campaign) {
+
+        return ResponseEntity.ok(campaignService.updateCampaign(id, campaign));
     }
 
-    // READ BY ID
     @GetMapping("/{id}")
-    public Campaign getCampaign(@PathVariable Long id) {
-        return campaignService.getCampaignById(id);
+    public ResponseEntity<Campaign> getCampaign(@PathVariable Long id) {
+        return ResponseEntity.ok(campaignService.getCampaignById(id));
     }
 
-    // READ ALL
     @GetMapping
-    public List<Campaign> getAllCampaigns() {
-        return campaignService.getAllCampaigns();
+    public ResponseEntity<List<Campaign>> getAllCampaigns() {
+        return ResponseEntity.ok(campaignService.getAllCampaigns());
     }
 }

@@ -16,28 +16,11 @@ public class SaleTransaction {
 
     private BigDecimal transactionAmount;
 
-    // ✅ MUST be Timestamp
     private Timestamp transactionDate;
 
     private Long customerId;
 
-    // ===== GETTERS & SETTERS =====
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public DiscountCode getDiscountCode() {
-        return discountCode;
-    }
-
-    public void setDiscountCode(DiscountCode discountCode) {
-        this.discountCode = discountCode;
-    }
+    // getters & setters
 
     public BigDecimal getTransactionAmount() {
         return transactionAmount;
@@ -53,6 +36,14 @@ public class SaleTransaction {
 
     public void setTransactionDate(Timestamp transactionDate) {
         this.transactionDate = transactionDate;
+    }
+
+    public DiscountCode getDiscountCode() {
+        return discountCode;
+    }
+
+    public void setDiscountCode(DiscountCode discountCode) {
+        this.discountCode = discountCode;
     }
 
     public Long getCustomerId() {
