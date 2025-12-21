@@ -15,7 +15,7 @@ public class Campaign {
     private LocalDate startDate;
     private LocalDate endDate;
 
-    // ===== GETTERS & SETTERS =====
+    public Campaign() {}
 
     public Long getId() {
         return id;
@@ -25,20 +25,24 @@ public class Campaign {
         return campaignName;
     }
 
-    public void setCampaignName(String campaignName) {
-        this.campaignName = campaignName;
-    }
-
     public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
-    }
-
     public LocalDate getEndDate() {
         return endDate;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setCampaignName(String campaignName) {
+        this.campaignName = campaignName;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
 
     public void setEndDate(LocalDate endDate) {
