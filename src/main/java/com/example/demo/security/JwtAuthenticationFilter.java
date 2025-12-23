@@ -22,7 +22,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                     FilterChain filterChain)
             throws ServletException, IOException {
 
-        // Intentionally minimal for test compatibility
         filterChain.doFilter(request, response);
     }
 }
