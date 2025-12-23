@@ -1,24 +1,43 @@
 package com.example.demo.model;
 
+import jakarta.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
 
+@Entity
+@Table(name = "influencers")
 public class Influencer {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
+
+    @Column(unique = true, nullable = false)
     private String socialHandle;
+
     private boolean active = true;
+
     private String email;
+
+    @Column(name = "created_at", nullable = false, updatable = false)
     private Timestamp createdAt;
 
-    // One influencer → many discount codes
+    @OneToMany(mappedBy = "influencer")
     private List<DiscountCode> discountCodes;
 
-    // Default constructor (important for frameworks & tests)
     public Influencer() {}
 
-    // Getters & Setters
+    @PrePersist
+    protected void onCreate() {
+        if (this.createdAt == null) {
+            this.createdAt = new Timestamp(System.currentTimeMillis());
+        }
+    }
+
+    // ---------- Getters & Setters ----------
+
     public Long getId() {
         return id;
     }
@@ -30,7 +49,7 @@ public class Influencer {
     public String getName() {
         return name;
     }
-
+ 
     public void setName(String name) {
         this.name = name;
     }
@@ -46,25 +65,9 @@ public class Influencer {
     public boolean isActive() {
         return active;
     }
-
+ 
     public void setActive(boolean active) {
         this.active = active;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Timestamp getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Timestamp createdAt) {
-        this.createdAt = createdAt;
     }
 
     public List<DiscountCode> getDiscountCodes() {
@@ -73,5 +76,17 @@ public class Influencer {
 
     public void setDiscountCodes(List<DiscountCode> discountCodes) {
         this.discountCodes = discountCodes;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+ 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Timestamp getCreatedAt() {
+        return createdAt;
     }
 }
