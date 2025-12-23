@@ -37,4 +37,12 @@ public class RoiServiceImpl implements RoiService {
     }
 
     @Override
-    public List<RoiReport> getReportsForInfluenc
+    public List<RoiReport> getReportsForInfluencer(Long influencerId) {
+        return roiReportRepository.findByInfluencer_Id(influencerId);
+    }
+
+    @Override
+    public List<RoiReport> getReportsForCampaign(Long campaignId) {
+        return roiReportRepository.findByCampaign_Id(campaignId);
+    }
+}

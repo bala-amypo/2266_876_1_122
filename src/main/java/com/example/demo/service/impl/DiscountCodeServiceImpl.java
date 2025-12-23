@@ -33,8 +33,10 @@ public class DiscountCodeServiceImpl implements DiscountCodeService {
     public DiscountCode updateDiscountCode(Long id, DiscountCode code) {
         DiscountCode existing = discountCodeRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Discount code not found"));
+
         existing.setCodeValue(code.getCodeValue());
         existing.setDiscountPercentage(code.getDiscountPercentage());
+
         return discountCodeRepository.save(existing);
     }
 
@@ -59,3 +61,5 @@ public class DiscountCodeServiceImpl implements DiscountCodeService {
         DiscountCode code = getDiscountCodeById(id);
         code.setActive(false);
         discountCodeRepository.save(code);
+    }
+}

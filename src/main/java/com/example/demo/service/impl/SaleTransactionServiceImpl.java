@@ -41,4 +41,11 @@ public class SaleTransactionServiceImpl implements SaleTransactionService {
 
     @Override
     public List<SaleTransaction> getSalesForInfluencer(Long influencerId) {
-        return saleTransactionRepository.findByDiscountCode_Influencer_Id(infl
+        return saleTransactionRepository.findByDiscountCode_Influencer_Id(influencerId);
+    }
+
+    @Override
+    public List<SaleTransaction> getSalesForCampaign(Long campaignId) {
+        return saleTransactionRepository.findByDiscountCode_Campaign_Id(campaignId);
+    }
+}
