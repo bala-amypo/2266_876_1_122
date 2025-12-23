@@ -10,7 +10,4 @@ public interface InfluencerService {
     List<Influencer> getAllInfluencers();
 
     Influencer getInfluencerById(Long id);
-    Influencer updateInfluencer(Long id, Influencer influencer);
-
-    Influencer deactivateInfluencer(Long id);
 }
