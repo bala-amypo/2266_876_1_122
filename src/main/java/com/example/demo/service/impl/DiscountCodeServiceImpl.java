@@ -7,7 +7,9 @@ import com.example.demo.repository.InfluencerRepository;
 import com.example.demo.service.DiscountCodeService;
 
 import java.util.List;
+import org.springframework.stereotype.Service;
 
+@Service
 public class DiscountCodeServiceImpl implements DiscountCodeService {
 
     private final DiscountCodeRepository discountCodeRepository;
