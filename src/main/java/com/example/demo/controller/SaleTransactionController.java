@@ -22,8 +22,8 @@ public class SaleTransactionController {
         return ResponseEntity.ok(saleTransactionService.createSale(saleTransaction));
     }
 
-    @GetMapping("/code/{id}")
-    public ResponseEntity<List<SaleTransaction>> getSalesForCode(@PathVariable Long id) {
-        return ResponseEntity.ok(saleTransactionService.getSalesForCode(id));
+    @GetMapping("/code/{codeId}")
+    public ResponseEntity<List<SaleTransaction>> getSalesForCode(@PathVariable Long codeId) {
+        return ResponseEntity.ok(saleTransactionService.getSalesForCode(codeId));
     }
 }

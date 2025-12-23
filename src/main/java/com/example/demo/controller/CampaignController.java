@@ -17,6 +17,11 @@ public class CampaignController {
         this.campaignService = campaignService;
     }
 
+    @PostMapping
+    public ResponseEntity<Campaign> createCampaign(@RequestBody Campaign campaign) {
+        return ResponseEntity.ok(campaignService.createCampaign(campaign));
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<Campaign> updateCampaign(
             @PathVariable Long id,
