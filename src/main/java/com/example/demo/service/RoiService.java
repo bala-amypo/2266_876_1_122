@@ -1,15 +1,9 @@
 package com.example.demo.service;
 
-import com.example.demo.model.SaleTransaction;
+import com.example.demo.model.RoiReport;
 import java.util.List;
 
-public interface SaleTransactionService {
+public interface RoiService {
 
-    SaleTransaction createSale(SaleTransaction saleTransaction);
-
-    List<SaleTransaction> getSalesForCode(Long discountCodeId);
-
-    List<SaleTransaction> getSalesForInfluencer(Long influencerId);
-
-    List<SaleTransaction> getSalesForCampaign(Long campaignId);
+    List<RoiReport> getReportsForInfluencer(Long influencerId);
 }
