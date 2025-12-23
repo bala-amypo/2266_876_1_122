@@ -5,9 +5,11 @@ import java.util.List;
 
 public interface SaleTransactionService {
 
-    SaleTransaction createSale(SaleTransaction saleTransaction);
+    SaleTransaction createSale(SaleTransaction transaction);
 
-    List<SaleTransaction> getSalesForCode(Long discountCodeId);
+    SaleTransaction getTransactionById(Long id);
+
+    List<SaleTransaction> getSalesForCode(Long codeId);
 
     List<SaleTransaction> getSalesForInfluencer(Long influencerId);
 
