@@ -1,17 +1,32 @@
 package com.example.demo.model;
 
+import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
+@Entity
+@Table(name = "sale_transactions")
 public class SaleTransaction {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private DiscountCode discountCode;
+
+    @Column(nullable = false)
     private BigDecimal transactionAmount;
+
+    @Column(nullable = false)
     private Timestamp transactionDate;
+
     private Long customerId;
 
+    @ManyToOne
+    @JoinColumn(name = "discount_code_id")
+    private DiscountCode discountCode;
+
     public SaleTransaction() {}
+
+    // ---------- Getters & Setters ----------
 
     public Long getId() {
         return id;
@@ -19,14 +34,6 @@ public class SaleTransaction {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public DiscountCode getDiscountCode() {
-        return discountCode;
-    }
-
-    public void setDiscountCode(DiscountCode discountCode) {
-        this.discountCode = discountCode;
     }
 
     public BigDecimal getTransactionAmount() {
@@ -51,5 +58,13 @@ public class SaleTransaction {
 
     public void setCustomerId(Long customerId) {
         this.customerId = customerId;
+    }
+
+    public DiscountCode getDiscountCode() {
+        return discountCode;
+    }
+
+    public void setDiscountCode(DiscountCode discountCode) {
+        this.discountCode = discountCode;
     }
 }
