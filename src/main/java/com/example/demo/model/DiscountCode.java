@@ -1,17 +1,37 @@
 package com.example.demo.model;
 
+import jakarta.persistence.*;
+import java.util.List;
+
+@Entity
+@Table(name = "discount_codes")
 public class DiscountCode {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String codeValue;
-    private Double discountPercentage;
-    private boolean active;
 
-    // Relationships
+    @Column(nullable = false)
+    private String codeValue;
+
+    private double discountPercentage;
+
+    private boolean active = true;
+
+    @ManyToOne
+    @JoinColumn(name = "influencer_id")
     private Influencer influencer;
+
+    @ManyToOne
+    @JoinColumn(name = "campaign_id")
     private Campaign campaign;
 
+    @OneToMany(mappedBy = "discountCode")
+    private List<SaleTransaction> saleTransactions;
+
     public DiscountCode() {}
+
+    // ---------- Getters & Setters ----------
 
     public Long getId() {
         return id;
@@ -29,12 +49,20 @@ public class DiscountCode {
         this.codeValue = codeValue;
     }
 
-    public Double getDiscountPercentage() {
+    public double getDiscountPercentage() {
         return discountPercentage;
     }
 
-    public void setDiscountPercentage(Double discountPercentage) {
+    public void setDiscountPercentage(double discountPercentage) {
         this.discountPercentage = discountPercentage;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public Influencer getInfluencer() {
@@ -53,11 +81,11 @@ public class DiscountCode {
         this.campaign = campaign;
     }
 
-    public boolean isActive() {
-        return active;
+    public List<SaleTransaction> getSaleTransactions() {
+        return saleTransactions;
     }
 
-    public void setActive(boolean active) {
-        this.active = active;
+    public void setSaleTransactions(List<SaleTransaction> saleTransactions) {
+        this.saleTransactions = saleTransactions;
     }
 }
