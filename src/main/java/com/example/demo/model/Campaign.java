@@ -1,16 +1,32 @@
 package com.example.demo.model;
 
+import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
+@Entity
+@Table(name = "campaigns")
 public class Campaign {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
     private String campaignName;
+
     private LocalDate startDate;
+
     private LocalDate endDate;
-    private boolean active;
+
+    private boolean active = true;
+
+    @OneToMany(mappedBy = "campaign")
+    private List<DiscountCode> discountCodes;
 
     public Campaign() {}
+
+    // ---------- Getters & Setters ----------
 
     public Long getId() {
         return id;
@@ -50,5 +66,13 @@ public class Campaign {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public List<DiscountCode> getDiscountCodes() {
+        return discountCodes;
+    }
+
+    public void setDiscountCodes(List<DiscountCode> discountCodes) {
+        this.discountCodes = discountCodes;
     }
 }
