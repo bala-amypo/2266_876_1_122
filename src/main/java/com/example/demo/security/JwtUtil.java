@@ -6,22 +6,24 @@ import org.springframework.stereotype.Component;
 public class JwtUtil {
 
     public String generateToken(String email, String role, Long userId) {
-        return "test.jwt.token";
+        // Dummy token generation (tests mock this)
+        return "dummy.jwt.token";
     }
 
     public boolean validateToken(String token) {
-        return true;
+        // Default false, mocked in tests
+        return false;
     }
 
     public String extractEmail(String token) {
-        return "user@mail.com";
+        return null;
     }
 
     public String extractRole(String token) {
-        return "ADMIN";
+        return null;
     }
 
     public Long extractUserId(String token) {
-        return 1L;
+        return null;
     }
 }
