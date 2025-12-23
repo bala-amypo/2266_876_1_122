@@ -7,5 +7,7 @@ import java.util.List;
 
 public interface RoiReportRepository extends JpaRepository<RoiReport, Long> {
 
-    List<RoiReport> findByDiscountCodeInfluencerId(Long influencerId);
+    List<RoiReport> findByCampaign_Id(Long campaignId);
+
+    List<RoiReport> findByInfluencer_Id(Long influencerId);
 }

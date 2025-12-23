@@ -5,66 +5,38 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "sale_transactions")
 public class SaleTransaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @ManyToOne
+    private DiscountCode discountCode;
+
     private BigDecimal transactionAmount;
 
-    @Column(nullable = false)
     private Timestamp transactionDate;
 
     private Long customerId;
 
-    @ManyToOne
-    @JoinColumn(name = "discount_code_id")
-    private DiscountCode discountCode;
-
-    public SaleTransaction() {}
-
-    // ---------- Getters & Setters ----------
-
-    public Long getId() {
-        return id;
+    @PrePersist
+    public void onCreate() {
+        this.transactionDate = new Timestamp(System.currentTimeMillis());
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public BigDecimal getTransactionAmount() {
-        return transactionAmount;
-    }
+    public DiscountCode getDiscountCode() { return discountCode; }
+    public void setDiscountCode(DiscountCode discountCode) { this.discountCode = discountCode; }
 
-    public void setTransactionAmount(BigDecimal transactionAmount) {
-        this.transactionAmount = transactionAmount;
-    }
+    public BigDecimal getTransactionAmount() { return transactionAmount; }
+    public void setTransactionAmount(BigDecimal transactionAmount) { this.transactionAmount = transactionAmount; }
 
-    public Timestamp getTransactionDate() {
-        return transactionDate;
-    }
+    public Timestamp getTransactionDate() { return transactionDate; }
+    public void setTransactionDate(Timestamp transactionDate) { this.transactionDate = transactionDate; }
 
-    public void setTransactionDate(Timestamp transactionDate) {
-        this.transactionDate = transactionDate;
-    }
-
-    public Long getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(Long customerId) {
-        this.customerId = customerId;
-    }
-
-    public DiscountCode getDiscountCode() {
-        return discountCode;
-    }
-
-    public void setDiscountCode(DiscountCode discountCode) {
-        this.discountCode = discountCode;
-    }
+    public Long getCustomerId() { return customerId; }
+    public void setCustomerId(Long customerId) { this.customerId = customerId; }
 }

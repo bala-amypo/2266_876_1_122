@@ -2,10 +2,8 @@ package com.example.demo.model;
 
 import jakarta.persistence.*;
 import java.sql.Timestamp;
-import java.util.List;
 
 @Entity
-@Table(name = "influencers")
 public class Influencer {
 
     @Id
@@ -17,76 +15,33 @@ public class Influencer {
     @Column(unique = true, nullable = false)
     private String socialHandle;
 
-    private boolean active = true;
-
     private String email;
 
-    @Column(name = "created_at", nullable = false, updatable = false)
+    private boolean active;
+
     private Timestamp createdAt;
 
-    @OneToMany(mappedBy = "influencer")
-    private List<DiscountCode> discountCodes;
-
-    public Influencer() {}
-
     @PrePersist
-    protected void onCreate() {
-        if (this.createdAt == null) {
-            this.createdAt = new Timestamp(System.currentTimeMillis());
-        }
+    public void onCreate() {
+        this.createdAt = new Timestamp(System.currentTimeMillis());
+        this.active = true;
     }
 
-    // ---------- Getters & Setters ----------
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public Long getId() {
-        return id;
-    }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public String getSocialHandle() { return socialHandle; }
+    public void setSocialHandle(String socialHandle) { this.socialHandle = socialHandle; }
 
-    public String getName() {
-        return name;
-    }
- 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
 
-    public String getSocialHandle() {
-        return socialHandle;
-    }
+    public boolean isActive() { return active; }
+    public void setActive(boolean active) { this.active = active; }
 
-    public void setSocialHandle(String socialHandle) {
-        this.socialHandle = socialHandle;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
- 
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-    public List<DiscountCode> getDiscountCodes() {
-        return discountCodes;
-    }
-
-    public void setDiscountCodes(List<DiscountCode> discountCodes) {
-        this.discountCodes = discountCodes;
-    }
-
-    public String getEmail() {
-        return email;
-    }
- 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Timestamp getCreatedAt() {
-        return createdAt;
-    }
+    public Timestamp getCreatedAt() { return createdAt; }
+    public void setCreatedAt(Timestamp createdAt) { this.createdAt = createdAt; }
 }

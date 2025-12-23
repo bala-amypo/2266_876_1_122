@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface SaleTransactionRepository extends JpaRepository<SaleTransaction, Long> {
 
-    List<SaleTransaction> findByDiscountCodeId(Long discountCodeId);
+    List<SaleTransaction> findByDiscountCode_Id(Long codeId);
 
-    List<SaleTransaction> findByDiscountCodeInfluencerId(Long influencerId);
+    List<SaleTransaction> findByDiscountCode_Influencer_Id(Long influencerId);
 
-    List<SaleTransaction> findByDiscountCodeCampaignId(Long campaignId);
+    List<SaleTransaction> findByDiscountCode_Campaign_Id(Long campaignId);
 }

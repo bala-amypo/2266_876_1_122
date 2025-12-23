@@ -1,91 +1,42 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-import java.util.List;
 
 @Entity
-@Table(name = "discount_codes")
 public class DiscountCode {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(unique = true)
     private String codeValue;
 
-    private double discountPercentage;
+    private Double discountPercentage;
 
     private boolean active = true;
 
     @ManyToOne
-    @JoinColumn(name = "influencer_id")
     private Influencer influencer;
 
     @ManyToOne
-    @JoinColumn(name = "campaign_id")
     private Campaign campaign;
 
-    @OneToMany(mappedBy = "discountCode")
-    private List<SaleTransaction> saleTransactions;
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public DiscountCode() {}
+    public String getCodeValue() { return codeValue; }
+    public void setCodeValue(String codeValue) { this.codeValue = codeValue; }
 
-    // ---------- Getters & Setters ----------
+    public Double getDiscountPercentage() { return discountPercentage; }
+    public void setDiscountPercentage(Double discountPercentage) { this.discountPercentage = discountPercentage; }
 
-    public Long getId() {
-        return id;
-    }
+    public boolean isActive() { return active; }
+    public void setActive(boolean active) { this.active = active; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public Influencer getInfluencer() { return influencer; }
+    public void setInfluencer(Influencer influencer) { this.influencer = influencer; }
 
-    public String getCodeValue() {
-        return codeValue;
-    }
-
-    public void setCodeValue(String codeValue) {
-        this.codeValue = codeValue;
-    }
-
-    public double getDiscountPercentage() {
-        return discountPercentage;
-    }
-
-    public void setDiscountPercentage(double discountPercentage) {
-        this.discountPercentage = discountPercentage;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-    public Influencer getInfluencer() {
-        return influencer;
-    }
-
-    public void setInfluencer(Influencer influencer) {
-        this.influencer = influencer;
-    }
-
-    public Campaign getCampaign() {
-        return campaign;
-    }
-
-    public void setCampaign(Campaign campaign) {
-        this.campaign = campaign;
-    }
-
-    public List<SaleTransaction> getSaleTransactions() {
-        return saleTransactions;
-    }
-
-    public void setSaleTransactions(List<SaleTransaction> saleTransactions) {
-        this.saleTransactions = saleTransactions;
-    }
+    public Campaign getCampaign() { return campaign; }
+    public void setCampaign(Campaign campaign) { this.campaign = campaign; }
 }
