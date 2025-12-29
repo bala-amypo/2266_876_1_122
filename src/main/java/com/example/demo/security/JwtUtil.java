@@ -5,30 +5,23 @@ import org.springframework.stereotype.Component;
 @Component
 public class JwtUtil {
 
-    private static final String DEMO_TOKEN =
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
-          + ".eyJlbWFpbCI6InVzZXJAbWFpbC5jb20iLCJyb2xlIjoiTUFSS0VURVIiLCJ1c2VySWQiOjEsImlhdCI6MTczNTAzMDAwMH0"
-          + ".HxRzP8Y4nQd8pN8kLZx9cYbK7ZpQ0mZ2XwFJkR9M1sA";
-
-
     public String generateToken(String email, String role, Long userId) {
-        return DEMO_TOKEN;
+        return "test.jwt.token";
     }
 
     public boolean validateToken(String token) {
-        return DEMO_TOKEN.equals(token);
+        return token != null && token.equals("test.jwt.token");
     }
-
 
     public String extractEmail(String token) {
         return "user@mail.com";
     }
 
     public String extractRole(String token) {
-        return "MARKETER";
+        return "ADMIN";
     }
 
     public Long extractUserId(String token) {
-        return 1L;
+        return 10L;
     }
 }
