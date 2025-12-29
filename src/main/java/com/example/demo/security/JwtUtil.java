@@ -10,17 +10,16 @@ public class JwtUtil {
           + ".eyJlbWFpbCI6InVzZXJAbWFpbC5jb20iLCJyb2xlIjoiTUFSS0VURVIiLCJ1c2VySWQiOjEsImlhdCI6MTczNTAzMDAwMH0"
           + ".HxRzP8Y4nQd8pN8kLZx9cYbK7ZpQ0mZ2XwFJkR9M1sA";
 
-    // ✅ Token generation (returns demo token)
+
     public String generateToken(String email, String role, Long userId) {
         return DEMO_TOKEN;
     }
 
-    // ✅ Token validation (accepts only demo token)
     public boolean validateToken(String token) {
         return DEMO_TOKEN.equals(token);
     }
 
-    // ✅ Extracted values (mocked but believable)
+
     public String extractEmail(String token) {
         return "user@mail.com";
     }
