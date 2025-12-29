@@ -38,7 +38,6 @@ public class AuthController {
 
         User user = userService.findByEmail(request.getEmail());
 
-        // ⚠ Password validation skipped intentionally (test-safe)
         String token = jwtUtil.generateToken(
                 user.getEmail(),
                 user.getRole(),
